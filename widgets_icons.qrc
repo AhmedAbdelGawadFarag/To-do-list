@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>widgets icons/add-square-outlined-interface-button.png</file>
+        <file>widgets icons/checked.png</file>
+        <file>widgets icons/checkmark-verify-interface-symbol-button.png</file>
+        <file>widgets icons/check-sign-in-a-rounded-black-square.png</file>
+        <file>widgets icons/close-circular-button-symbol.png</file>
+        <file>widgets icons/house-outline.png</file>
+        <file>widgets icons/icons8-checked-64.png</file>
+        <file>widgets icons/icons8-checkmark-64.png</file>
+        <file>widgets icons/icons8-search-64.png</file>
+        <file>widgets icons/icons8-search-80.png</file>
+        <file>widgets icons/list (1).png</file>
+        <file>widgets icons/save-button-interface-symbol-of-outlined-diskette.png</file>
+        <file>widgets icons/f353fd3d-af82-4cc6-80ef-83332edd1e12.jpg</file>
+        <file>widgets icons/wristwatch.png</file>
+        <file>widgets icons/running-businessman-with-suitcase.png</file>
+        <file>widgets icons/icons8-eye-50.png</file>
+        <file>widgets icons/icons8-today-26.png</file>
+    </qresource>
+</RCC>
