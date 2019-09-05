@@ -20,6 +20,6 @@ u will find database undername database.db ty for trying my to-do-list
 
 ![](images/TodayTask2.PNG)
 
-# you can search any task and delte them
+# you can search any task and delete them
 
 ![](images/SearchTask.PNG)
