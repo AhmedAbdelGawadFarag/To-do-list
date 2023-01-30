@@ -107,6 +107,95 @@ MainWindow::MainWindow(QWidget *parent) :
      }
     loaded=true;
 
+
+    QPixmap oPixmap(32,32);
+    oPixmap.load (pwd.toLatin1() +"/Resource/icon.png");
+
+    QIcon oIcon( oPixmap );
+
+    trayIcon = new QSystemTrayIcon(oIcon);
+
+    QAction *quit_action = new QAction( "Exit", trayIcon );
+    connect( quit_action, SIGNAL(triggered()), this, SLOT(on_exit()) );
+
+    QAction *show_action = new QAction( "Show", trayIcon );
+    connect( show_action, SIGNAL(triggered()), this, SLOT(on_show()) );
+
+    trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction( quit_action );
+    trayIconMenu->addAction( show_action );
+    trayIcon->setContextMenu( trayIconMenu);
+    trayIcon->setVisible(true);
+    //trayIcon->showMessage("Test Message", "Text", QSystemTrayIcon::Information, 1000);
+    //trayIcon->show();
+
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+
+    closing = true;
+
+
+     auto exitAction = new QAction(tr("&Exit"), this);
+     connect(exitAction, &QAction::triggered, [this]()
+     {
+         closing = true;
+         close();
+     });
+}
+
+void MainWindow::on_exit()
+{
+    this->close();
+    QApplication::quit();
+}
+void MainWindow::on_show()
+{
+    this->show();
+   // QApplication::quit();
+}
+
+void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason)
+    {
+     case QSystemTrayIcon::Trigger:
+         this->show();
+         qDebug() << "test123";
+         break;
+     case QSystemTrayIcon::DoubleClick:
+         this->show();
+         qDebug() << "test123";
+         break;
+     default:
+         ;
+    }
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    QMainWindow::changeEvent(event);
+    if(event->type() == QEvent::WindowStateChange)
+        if(isMinimized())
+            this->hide();
+}
+
+
+//void MainWindow::showMessage()
+//{
+//    QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon();
+//    trayIcon->showMessage(tr("QGiffer"), tr("updating background..."), icon, 100);
+//}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(closing)
+    {
+        event->accept();
+    }
+    else
+    {
+        this->hide();
+        event->ignore();
+    }
 }
 
 MainWindow::~MainWindow()
