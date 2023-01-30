@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>982</width>
-    <height>632</height>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>6</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideLeft</enum>
@@ -196,8 +196,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>835</width>
-               <height>510</height>
+               <width>822</width>
+               <height>557</height>
               </rect>
              </property>
             </widget>
@@ -314,8 +314,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>837</width>
-               <height>510</height>
+               <width>824</width>
+               <height>557</height>
               </rect>
              </property>
             </widget>
@@ -425,8 +425,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>851</width>
-               <height>510</height>
+               <width>830</width>
+               <height>557</height>
               </rect>
              </property>
             </widget>
@@ -524,8 +524,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>851</width>
-               <height>510</height>
+               <width>838</width>
+               <height>557</height>
               </rect>
              </property>
             </widget>
@@ -883,6 +883,36 @@ QTextEdit:selected {
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Settings</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>50</y>
+          <width>591</width>
+          <height>65</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Settings</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_9">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>theme</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="cmbTheme"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -893,9 +923,16 @@ QTextEdit:selected {
      <x>0</x>
      <y>0</y>
      <width>982</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuMenu"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -906,6 +943,11 @@ QTextEdit:selected {
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

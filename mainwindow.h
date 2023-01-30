@@ -27,6 +27,11 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     int tasknumber=0;
+
+        bool loaded=false;
+        QString fileName;
+            void loadStyleSheet(QString sheet_name);
+
     struct tasks{
         QString taskname;
         int id;
@@ -173,6 +178,9 @@ private slots:
     void on_check_all_structs_button_clicked();
 
     void on_search_by_number_button_clicked();
+    void on_cmbTheme_currentIndexChanged(const QString &arg1);
+
+    void on_actionExit_triggered();
 
 private:
     Ui::MainWindow *ui;
