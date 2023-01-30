@@ -12,6 +12,8 @@
 #include<QTextStream>
 #include<QMovie>
 #include<QMessageBox>
+#include <QDirIterator>
+QString pwd;
 int _current_year;
 int _current_day;
 int _current_month;
@@ -24,17 +26,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QFile f(":qdarkstyle/style.qss");
-    if (!f.exists())
-    {
-        printf("Unable to set stylesheet, file not found\n");
-    }
-    else
-    {
-        f.open(QFile::ReadOnly | QFile::Text);
-        QTextStream ts(&f);
-        qApp->setStyleSheet(ts.readAll());
-    }
+    QDir dir(".");
+
+
+    pwd.append( dir.absolutePath() );
+
+
+//    QFile f(":qdarkstyle/style.qss");
+//    if (!f.exists())
+//    {
+//        printf("Unable to set stylesheet, file not found\n");
+//    }
+//    else
+//    {
+//        f.open(QFile::ReadOnly | QFile::Text);
+//        QTextStream ts(&f);
+//        qApp->setStyleSheet(ts.readAll());
+//    }
+
+
     open_database();
 
     _current_day=ui->calendarWidget->selectedDate().day();
@@ -59,6 +69,43 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->label_2->hide();
 
 
+    QDirIterator it(pwd.toLatin1() +"/Resource/themes/", QStringList() << "*.qss", QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()){
+        //  QFileInfo fileInfo(f.fileName());
+        ui->cmbTheme->addItem(it.next().toLatin1());
+    }
+
+    QString walltheme;
+    QFile MyFile(pwd.toLatin1() +"/themes.txt");
+    if (MyFile.exists()) {
+        MyFile.open(QIODevice::ReadWrite);
+        QTextStream in (&MyFile);
+        QString line;
+        QStringList list;
+        //   QList<QString> nums;
+        QStringList nums;
+        QRegularExpression rx("[|]");
+        line = in.readLine();
+        QString stylesheet;
+
+        if (line.contains("|")) {
+            list = line.split(rx);
+            qDebug() << "theme" <<  list.at(1).toLatin1();
+            stylesheet =  list.at(1).toLatin1();
+            loadStyleSheet( list.at(1).toLatin1());
+            MyFile.close();
+        }
+
+        fileName=stylesheet;
+        QFile file(stylesheet);
+
+        file.open(QIODevice::Text | QIODevice::ReadOnly);
+        QString content;
+
+        while(!file.atEnd())
+            content.append(file.readLine());
+     }
+    loaded=true;
 
 }
 
@@ -1294,3 +1341,53 @@ void MainWindow::take_date_from_done_tasks(int id,int &day,int &month,int &year)
     year=query.value(2).toInt();
 
 }
+
+void MainWindow::loadStyleSheet( QString sheet_name)
+{
+    QFile file(sheet_name);
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+
+    qApp->setStyleSheet(styleSheet);
+}
+
+void MainWindow::on_cmbTheme_currentIndexChanged(const QString &arg1)
+{
+    if (loaded==true)
+    {
+        fileName=ui->cmbTheme->currentText();
+        QFile file(fileName);
+
+        file.open(QIODevice::Text | QIODevice::ReadOnly);
+        QString content;
+        while(!file.atEnd())
+            content.append(file.readLine());
+        file.close();
+
+        loadStyleSheet(ui->cmbTheme->currentText());
+
+        QFile file2(pwd.toLatin1() +"/themes.txt");
+        if(file2.open(QIODevice::ReadWrite | QIODevice::Text))// QIODevice::Append |
+        {
+            QTextStream stream(&file2);
+            file2.seek(0);
+            stream << "theme|" << ui->cmbTheme->currentText().toLatin1()<< endl;
+            for (int i = 0; i < ui->cmbTheme->count(); i++) {
+                stream << "theme|" << ui->cmbTheme->itemText(i) << endl;
+            }
+            file2.close();
+        }
+
+        if (ui->cmbTheme->currentText().toLatin1() != ""){
+          //   ui->cmbTheme->currentText().toLatin1();
+        }
+    }
+}
+
+
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::exit();
+}
+
