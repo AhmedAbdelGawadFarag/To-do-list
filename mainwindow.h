@@ -11,6 +11,7 @@
 #include<QPair>
 #include<QString>
 #include<QVector>
+#include<QSystemTrayIcon>
 extern QString m[];
 extern int _current_year;
 extern int _current_day;
@@ -27,7 +28,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     int tasknumber=0;
-
+    bool closing;
         bool loaded=false;
         QString fileName;
             void loadStyleSheet(QString sheet_name);
@@ -181,9 +182,15 @@ private slots:
     void on_cmbTheme_currentIndexChanged(const QString &arg1);
 
     void on_actionExit_triggered();
-
+    void on_exit();
+    void on_show();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+    void changeEvent(QEvent *event);
+    void closeEvent(QCloseEvent *event);
 private:
     Ui::MainWindow *ui;
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayIconMenu;
 };
 
 #endif // MAINWINDOW_H
