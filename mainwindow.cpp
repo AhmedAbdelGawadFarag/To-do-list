@@ -126,7 +126,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trayIconMenu->addAction( show_action );
     trayIcon->setContextMenu( trayIconMenu);
     trayIcon->setVisible(true);
-    //trayIcon->showMessage("Test Message", "Text", QSystemTrayIcon::Information, 1000);
+    trayIcon->showMessage("Test Message", "Text", QSystemTrayIcon::Information, 1000);
     //trayIcon->show();
 
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
