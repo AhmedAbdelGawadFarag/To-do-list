@@ -131,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 
-    closing = true;
+    closing = false;
 
 
      auto exitAction = new QAction(tr("&Exit"), this);
